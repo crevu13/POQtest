@@ -1,0 +1,392 @@
+{
+	"info": {
+		"_postman_id": "e50ac188-2d6b-4851-8f04-6369530965db",
+		"name": "POQ App Collection",
+		"description": "Collection of API tests for the POQ Test app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "Register Successfully",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84005e65-7d99-42a1-9e4e-8343f30735ad",
+								"exec": [
+									"pm.test(\"Verify user can register successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"credentials\": {\n\t\t\"password\": \"Basketball13\",\n\t\t\"username\": \"brettmckinnon89@gmail.com\"\n\t},\n\t\"isPromotion\": false,\n\t\"profile\": {\n\t\t\"accessToken\": \"\",\n\t\t\"cookies\": [],\n\t\t\"email\": \"brettmckinnon89@gmail.com\",\n\t\t\"employeeId\": \"\",\n\t\t\"encryptedPassword\": \"\",\n\t\t\"expressCheckout\": false,\n\t\t\"firstName\": \"Brett\",\n\t\t\"isBagMerged\": false,\n\t\t\"isBagMergedMessage\": \"\",\n\t\t\"isPromotion\": false,\n\t\t\"lastName\": \"McKinnon\",\n\t\t\"loyaltyCardNumber\": \"\",\n\t\t\"phone\": \"77775558888\",\n\t\t\"refreshToken\": \"\",\n\t\t\"storeId\": \"\",\n\t\t\"username\": \"\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/Account/register/{{customer_id}}/{{poq_user_id}}",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Account",
+								"register",
+								"{{customer_id}}",
+								"{{poq_user_id}}"
+							]
+						},
+						"description": "Test that a user can register a new account successfully"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Email Address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84005e65-7d99-42a1-9e4e-8343f30735ad",
+								"exec": [
+									"pm.test(\"Verify user cannot register with invalid email\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"credentials\": {\n\t\t\"password\": \"Basketball13\",\n\t\t\"username\": \"invalidemail.com\"\n\t},\n\t\"isPromotion\": false,\n\t\"profile\": {\n\t\t\"accessToken\": \"\",\n\t\t\"cookies\": [],\n\t\t\"email\": \"invalidemail.com\",\n\t\t\"employeeId\": \"\",\n\t\t\"encryptedPassword\": \"\",\n\t\t\"expressCheckout\": false,\n\t\t\"firstName\": \"Brett\",\n\t\t\"isBagMerged\": false,\n\t\t\"isBagMergedMessage\": \"\",\n\t\t\"isPromotion\": false,\n\t\t\"lastName\": \"McKinnon\",\n\t\t\"loyaltyCardNumber\": \"\",\n\t\t\"phone\": \"77775558888\",\n\t\t\"refreshToken\": \"\",\n\t\t\"storeId\": \"\",\n\t\t\"username\": \"\"\n\t}\n}"
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/Account/register/{{customer_id}}/{{poq_user_id}}",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Account",
+								"register",
+								"{{customer_id}}",
+								"{{poq_user_id}}"
+							]
+						},
+						"description": "Test that a user cannot register a new account with an invalid email address"
+					},
+					"response": []
+				}
+			],
+			"description": "Registration test cases"
+		},
+		{
+			"name": "Sign In",
+			"item": [
+				{
+					"name": "Sign in successfully",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9bcff32-cca8-4290-955f-a53057cf3cf9",
+								"exec": [
+									"pm.test(\"Verify registered user can login\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"Basketball13\",\n\t\"username\": \"brettmckinnon89@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/Account/Login/{{customer_id}}/{{poq_user_id}}",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Account",
+								"Login",
+								"{{customer_id}}",
+								"{{poq_user_id}}"
+							]
+						},
+						"description": "Verify that a user can succesfully sign in to a app"
+					},
+					"response": []
+				},
+				{
+					"name": "Unregistered User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dbcbc2a8-90fd-4d16-a1ca-381b585f68a0",
+								"exec": [
+									"pm.test(\"Verify unregistered user cannot login\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"fakepassword\",\n\t\"username\": \"johndoe@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/Account/Login/{{customer_id}}/{{poq_user_id}}",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Account",
+								"Login",
+								"{{customer_id}}",
+								"{{poq_user_id}}"
+							]
+						},
+						"description": "Verify that an unregistered user cannot sign in successfully"
+					},
+					"response": []
+				},
+				{
+					"name": "Incorrect password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8c4fb2b2-cba5-4e9f-8265-5e03c9a948db",
+								"exec": [
+									"pm.test(\"Verify registered user cannot login with incorrect password\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"fakepassword\",\n\t\"username\": \"brettmckinnon89@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/Account/Login/{{customer_id}}/{{poq_user_id}}",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Account",
+								"Login",
+								"{{customer_id}}",
+								"{{poq_user_id}}"
+							]
+						},
+						"description": "Verify that a registered user cannot sign in with an incorrect password"
+					},
+					"response": []
+				}
+			],
+			"description": "Sign In test cases"
+		},
+		{
+			"name": "Logout",
+			"item": [
+				{
+					"name": "Log out successfully",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a9bcff32-cca8-4290-955f-a53057cf3cf9",
+								"exec": [
+									"pm.test(\"Verify user can logout of the app\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"brettmckinnon89@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/Account/Logout/{{customer_id}}/{{poq_user_id}}",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"Account",
+								"Logout",
+								"{{customer_id}}",
+								"{{poq_user_id}}"
+							]
+						},
+						"description": "Verify that a user can succesfully log out of the app. Note: This is a bit of speculation as I was not able to successfully log in to the app due to registration issues"
+					},
+					"response": []
+				}
+			],
+			"description": "Logout test cases"
+		},
+		{
+			"name": "View Product Details",
+			"item": [
+				{
+					"name": "View Product Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc619485-6e7b-46d3-b347-85609135ff4a",
+								"exec": [
+									"pm.test(\"Verify product details are returned successfully\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"let jsonResponse = pm.response.json()",
+									"",
+									"pm.test(\"Verify product details are correct\", function () {",
+									"    pm.response.to.have.status(200);",
+									"    pm.expect(jsonResponse.id).to.eql(17813588);",
+									"    pm.expect(jsonResponse.productURL).to.eql('http://poqmagento.westeurope.cloudapp.azure.com/madison-overear-headphones.html');",
+									"    pm.expect(jsonResponse.title).to.eql('Madison Overear Headphones');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://poqapiuat.azure-api.net/products/detail/{{customer_id}}/17813588?poqUserId={{poq_user_id}}&externalId=hde011",
+							"protocol": "https",
+							"host": [
+								"poqapiuat",
+								"azure-api",
+								"net"
+							],
+							"path": [
+								"products",
+								"detail",
+								"{{customer_id}}",
+								"17813588"
+							],
+							"query": [
+								{
+									"key": "poqUserId",
+									"value": "{{poq_user_id}}"
+								},
+								{
+									"key": "externalId",
+									"value": "hde011"
+								}
+							]
+						},
+						"description": "Verify the details of a product are returned correctly"
+					},
+					"response": []
+				}
+			],
+			"description": "View product details test cases"
+		}
+	]
+}
